@@ -5,10 +5,12 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import pl.gruchh.restaurant.Entity.Pizza;
+import pl.gruchh.restaurant.Controller.Dto.PizzaDTO;
+import pl.gruchh.restaurant.Mapper.PizzaMapper;
 import pl.gruchh.restaurant.Service.PizzaService;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -17,10 +19,16 @@ import java.util.List;
 public class PizzaController {
 
     private final PizzaService pizzaService;
+    private final PizzaMapper pizzaMapper;
 
     @RequestMapping()
-    public ResponseEntity<List<Pizza> > getAllPizzas() {
+    public ResponseEntity<List<PizzaDTO>> getAllPizzas() {
 
-        return ResponseEntity.ok().body(pizzaService.getAllPizzas());
+        List<PizzaDTO> pizzaDTOList = pizzaService.getAllPizzas()
+                .stream()
+                .map(n -> pizzaMapper.mapToPizzaDTO(n))
+                .collect(Collectors.toList());
+
+        return ResponseEntity.ok().body(pizzaDTOList);
     }
 }

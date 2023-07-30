@@ -13,7 +13,17 @@ public class IngredientService {
 
     private final IngredientRepository ingredientRepository;
 
+
+    public void saveIngredientList(List<Ingredient> ingredientList) {
+        ingredientRepository.saveAll(ingredientList);
+    }
+
     public List<Ingredient> getAllIngredients() {
         return ingredientRepository.findAll();
+    }
+
+    public Ingredient getIngredientByName(String name) {
+
+        return ingredientRepository.findByName(name);
     }
 }

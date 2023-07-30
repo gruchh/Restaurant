@@ -16,4 +16,8 @@ public class PizzaService {
     public List<Pizza> getAllPizzas() {
         return pizzaRepository.findAll();
     }
+
+    public void savePizzaList(List<Pizza> pizzaList) {
+        pizzaRepository.saveAll(pizzaList);
+    }
 }

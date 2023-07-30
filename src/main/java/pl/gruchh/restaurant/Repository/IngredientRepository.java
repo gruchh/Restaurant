@@ -6,4 +6,5 @@ import pl.gruchh.restaurant.Entity.Ingredient;
 
 @Repository
 public interface IngredientRepository extends JpaRepository<Ingredient, Long> {
+    Ingredient findByName(String name);
 }
