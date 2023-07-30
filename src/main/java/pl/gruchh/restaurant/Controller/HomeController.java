@@ -46,7 +46,6 @@ public class HomeController {
         ing1.setPizzaSet(Set.of(pizza1, pizza2));
         ing2.setPizzaSet(Set.of(pizza2));
         pizzaService.savePizzaList(Arrays.asList(pizza1, pizza2));
-
     }
 
 }
