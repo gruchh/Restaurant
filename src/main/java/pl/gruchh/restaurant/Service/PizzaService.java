@@ -1,23 +1,13 @@
 package pl.gruchh.restaurant.Service;
 
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Repository;
 import pl.gruchh.restaurant.Entity.Pizza;
-import pl.gruchh.restaurant.Repository.PizzaRepository;
 
 import java.util.List;
 
-@RequiredArgsConstructor
-@Repository
-public class PizzaService {
+public interface PizzaService {
+    void savePizzaList(List<Pizza> pizzaList);
 
-    private final PizzaRepository pizzaRepository;
+    List<Pizza> getAllPizzas();
+    Pizza getPizzaByName(String name);
 
-    public List<Pizza> getAllPizzas() {
-        return pizzaRepository.findAll();
-    }
-
-    public void savePizzaList(List<Pizza> pizzaList) {
-        pizzaRepository.saveAll(pizzaList);
-    }
 }
