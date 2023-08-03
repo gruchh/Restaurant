@@ -19,6 +19,10 @@ public class OrderMapper {
 
     public OrderDTO mapToOrderDTO(Order order) {
 
+        if (order == null) {
+            throw new IllegalArgumentException("order cannot be null");
+        }
+
         Set<String> pizzaSet;
 
         if (order.getPizzaSet() == null) {
@@ -36,6 +40,10 @@ public class OrderMapper {
     }
 
     public Order mapToOrder(OrderDTO orderDTO) {
+
+        if (orderDTO == null) {
+            throw new IllegalArgumentException("orderDto cannot be null");
+        }
 
         Set<Pizza> pizzaSet;
 
