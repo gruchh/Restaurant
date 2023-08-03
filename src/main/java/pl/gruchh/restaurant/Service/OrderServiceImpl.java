@@ -9,11 +9,16 @@ import java.util.List;
 
 @RequiredArgsConstructor
 @Repository
-public class OrderService {
+public class OrderServiceImpl implements  OrdersService{
 
     private final OrderRepository orderRepository;
+
+    public void saveOrderList(List<Order> orderList) {
+        orderRepository.saveAll(orderList);
+    }
 
     public List<Order> getAllOrders() {
         return orderRepository.findAll();
     }
+
 }
