@@ -1,8 +1,10 @@
 package pl.gruchh.restaurant.Mapper;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 import pl.gruchh.restaurant.Controller.Dto.OrderDTO;
 import pl.gruchh.restaurant.Entity.Order;
 import pl.gruchh.restaurant.Entity.Pizza;
@@ -14,6 +16,7 @@ import java.util.stream.Collectors;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
 
+@ExtendWith(MockitoExtension.class)
 class OrderMapperTest {
 
     @Mock
@@ -23,7 +26,7 @@ class OrderMapperTest {
     private OrderMapper orderMapper;
 
     @Test
-    void ShouldMapToOrderDTOWithCorrectData() {
+    void shouldMapToOrderDtoWithCorrectData() {
 
         // Given
         Set<Pizza> pizzaSet = Set.of(
@@ -46,12 +49,12 @@ class OrderMapperTest {
         assertNotNull(orderDTO.pizzas());
         assertEquals(2, orderDTO.pizzas().size());
         assertEquals(pizzaSet.stream().map(Pizza::getName).collect(Collectors.toSet()), orderDTO.pizzas());
-        assertTrue(orderDTO.pizzas().contains("Hawaii"));
+        assertTrue(orderDTO.pizzas().contains("Hawaiian"));
         assertTrue(orderDTO.pizzas().contains("Salami"));
     }
 
     @Test
-    void ShouldMapToOrderDTOWithEmptyPizzas() {
+    void shouldMapToOrderDtoWithEmptyPizzas() {
 
         // Given
         Set<Pizza> pizzaSet = Set.of(
@@ -60,8 +63,8 @@ class OrderMapperTest {
         );
 
         Order order = Order.builder()
+                .id(1L)
                 .username("admin")
-                .pizzaSet(pizzaSet)
                 .build();
         // When
         OrderDTO orderDTO = orderMapper.mapToOrderDTO(order);
@@ -75,7 +78,16 @@ class OrderMapperTest {
     }
 
     @Test
-    void ShouldMapToOrderWithCorrectData() {
+    void shouldThrowExceptionWhileMapToOrderDtoWithNull() {
+
+        // When and Then
+        assertThrows(IllegalArgumentException.class, () -> {
+            orderMapper.mapToOrderDTO(null);
+        });
+    }
+
+    @Test
+    void shouldMapToOrderWithCorrectData() {
 
         // Given
         OrderDTO orderDTO = OrderDTO.builder()
@@ -105,12 +117,11 @@ class OrderMapperTest {
     }
 
     @Test
-    void ShouldMapToOrderWithEmptyPizzas() {
+    void shouldMapToOrderWithEmptyPizzas() {
         // Given
         OrderDTO orderDTO = OrderDTO.builder()
                 .id(133L)
                 .username("admin")
-                .pizzas((Set.of("Hawaiian", "Salami")))
                 .build();
 
         // When
@@ -124,4 +135,12 @@ class OrderMapperTest {
         assertTrue(order.getPizzaSet().isEmpty());
     }
 
+    @Test
+    void shouldThrowExceptionWhileMapToOrderWithNullDto() {
+
+        // When and Then
+        assertThrows(IllegalArgumentException.class, () -> {
+            orderMapper.mapToOrder(null);
+        });
+    }
 }
