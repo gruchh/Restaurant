@@ -9,7 +9,7 @@ import java.util.List;
 
 @RequiredArgsConstructor
 @Repository
-public class OrderServiceImpl implements  OrdersService{
+public class OrderServiceImpl implements OrderService{
 
     private final OrderRepository orderRepository;
 

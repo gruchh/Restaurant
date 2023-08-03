@@ -16,9 +16,7 @@ public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String postCode;
-    private String Adress;
-    private String city;
+    private String username;
 
     @ManyToMany
     @JoinTable(
