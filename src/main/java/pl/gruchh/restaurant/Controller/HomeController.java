@@ -7,8 +7,10 @@ import org.springframework.context.event.EventListener;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import pl.gruchh.restaurant.Entity.Ingredient;
+import pl.gruchh.restaurant.Entity.Order;
 import pl.gruchh.restaurant.Entity.Pizza;
 import pl.gruchh.restaurant.Service.IngredientService;
+import pl.gruchh.restaurant.Service.OrderService;
 import pl.gruchh.restaurant.Service.PizzaService;
 
 import java.math.BigDecimal;
@@ -23,6 +25,7 @@ public class HomeController {
 
     private final PizzaService pizzaService;
     private final IngredientService ingredientService;
+    private  final OrderService orderService;
 
     @EventListener(ApplicationReadyEvent.class)
     public void runOnStart() {
@@ -46,6 +49,19 @@ public class HomeController {
         ing1.setPizzaSet(Set.of(pizza1, pizza2));
         ing2.setPizzaSet(Set.of(pizza2));
         pizzaService.savePizzaList(Arrays.asList(pizza1, pizza2));
+
+        Order order1 = new Order();
+        order1.setUsername("admin");
+        order1.setPizzaSet(Set.of(
+                pizza1
+        ));
+
+        Order order2 = new Order();
+        order2.setUsername("admin");
+        order2.setPizzaSet(Set.of(
+                pizza1, pizza2
+        ));
+        orderService.saveOrderSet(Set.of(order1, order2));
     }
 
 }

@@ -6,14 +6,15 @@ import pl.gruchh.restaurant.Entity.Order;
 import pl.gruchh.restaurant.Repository.OrderRepository;
 
 import java.util.List;
+import java.util.Set;
 
 @RequiredArgsConstructor
 @Repository
-public class OrderServiceImpl implements OrderService{
+public class OrderServiceImpl implements OrderService {
 
     private final OrderRepository orderRepository;
 
-    public void saveOrderList(List<Order> orderList) {
+    public void saveOrderSet(Set<Order> orderList) {
         orderRepository.saveAll(orderList);
     }
 
