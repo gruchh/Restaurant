@@ -5,5 +5,5 @@ import lombok.Builder;
 import java.util.Set;
 
 @Builder
-public record OrderDTO(Long id, String username, Set<String> pizzas) {
+public record OrderDTO(Long id, String username, Set<String> pizzas, boolean isFinished) {
 }
